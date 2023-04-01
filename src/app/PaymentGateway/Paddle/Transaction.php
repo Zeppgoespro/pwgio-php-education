@@ -7,23 +7,47 @@ namespace App\PaymentGateway\Paddle;
 class Transaction
 {
 
-  private static int $count = 0;
+  private float $amount;
 
-  public function __construct(
-    public float $amount,
-    public string $description
-  ) {
-    self::$count++;
+  public function __construct(float $amount)
+  {
+    $this->amount = $amount;
   }
 
-  public static function getCount(): int
+  /*
+  public function getAmount(): float # getter
   {
-    return self::$count;
+    return $this->amount;
+  }
+
+
+  public function setAmount(float $amount) # setter
+  {
+    $this->amount = $amount;
+  }
+  */
+
+  public function copyFrom(Transaction $transaction)
+  {
+    var_dump($transaction->amount, $transaction->sendEmail());
   }
 
   public function process()
   {
-    echo 'Processing paddle transaction...';
+    echo 'Processing $' . $this->amount . ' transaction';
+
+    $this->generateReceipt();
+    $this->sendEmail();
+  }
+
+  private function generateReceipt()
+  {
+
+  }
+
+  private function sendEmail()
+  {
+    return true;
   }
 
 }
