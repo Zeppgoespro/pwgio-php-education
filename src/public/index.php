@@ -1,22 +1,13 @@
 <?php
 
-use App\PaymentGateway\Paddle\Transaction;
+use App\Toaster;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$transaction = new Transaction(25);
+$toaster = new Toaster();
 
-/*
-
-# Trick for accessing private/protected properties
-
-$reflectionProperty = new ReflectionProperty(Transaction::class, 'amount');
-$reflectionProperty->setAccessible(true);
-$reflectionProperty->setValue($transaction, 125);
-var_dump($reflectionProperty->getValue($transaction));
-
-*/
-
-$transaction->copyFrom(new Transaction(100));
-
-#$transaction->process();
+$toaster->addSlice('bread');
+$toaster->addSlice('bread');
+$toaster->addSlice('bread');
+$toaster->addSlice('bread');
+$toaster->toast();
