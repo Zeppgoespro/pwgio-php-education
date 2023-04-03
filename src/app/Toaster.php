@@ -30,4 +30,9 @@ class Toaster
     }
   }
 
+  public function fooBoba():void
+  {
+    echo 'Great Boba';
+  }
+
 }

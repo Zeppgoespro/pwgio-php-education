@@ -25,4 +25,9 @@ class ToasterPro extends Toaster
     }
   }
 
+  public function fooBoba():void
+  {
+    throw new \Exception('Not supported');
+  }
+
 }
