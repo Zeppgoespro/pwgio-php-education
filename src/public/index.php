@@ -2,6 +2,13 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$invoice = new App\Invoice();
+$classA = new \App\ClassA();
+$classB = new \App\ClassB();
 
-var_dump($invoice);
+#echo $classA->getName() . PHP_EOL;
+#echo $classB->getName() . PHP_EOL;
+
+#echo \App\ClassA::getName();
+#echo \App\ClassB::getName();
+
+var_dump(\App\ClassB::make());
