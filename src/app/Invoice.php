@@ -4,7 +4,7 @@ namespace App;
 
 class Invoice
 {
-  use Mail;
+  #use Mail;
 
   /*
   # First verion - magic get & magic set
@@ -120,10 +120,18 @@ class Invoice
   //   ];
   // }
 
-  public function process()
-  {
-    echo 'Processed invoice' . PHP_EOL;
+  // public function process()
+  // {
+  //   echo 'Processed invoice' . PHP_EOL;
 
-    $this->sendEmail();
+  //   $this->sendEmail();
+  // }
+
+  public ?Invoice $linkedInvoice = null;
+
+  public function __construct(public Customer $customer, public float $amount, public string $description)
+  {
+
   }
+
 }

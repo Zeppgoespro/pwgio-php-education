@@ -1,28 +1,30 @@
 <?php
 
+use App\Invoice;
+use App\CustomInvoice;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use App\ClassA;
-use App\MyInterface;
+$invoice1 = new Invoice (new \App\Customer('Customer 1'), 25, 'My Invoice');
+$invoice2 = new Invoice (new \App\Customer('Customer 2'), 25, 'My Invoice');
 
-// $obj = new class(1, 2, 3) implements MyInterface #extends MyClass
-// {
+// $invoice3 = $invoice1;
 
-//   #use MyTrait;
+$invoice1->linkedInvoice = $invoice2;
+$invoice2->linkedInvoice = $invoice1;
 
-//   public function __construct(public int $x, public int $y, public int $z)
-//   {
+echo 'invoice1 == invoice2' . PHP_EOL;
+var_dump($invoice1 == $invoice2);
 
-//   }
+echo 'invoice1 === invoice2' . PHP_EOL;
+var_dump($invoice1 === $invoice2);
 
-// };
+// echo 'invoice1 == invoice3' . PHP_EOL;
+// var_dump($invoice1 == $invoice3);
 
-// foo($obj);
+// echo 'invoice1 === invoice3' . PHP_EOL;
+// var_dump($invoice1 === $invoice3);
 
-// function foo(MyInterface $obj) {
-//   var_dump($obj);
-// }
+// $invoice3->amount = 250;
 
-$obj = new ClassA(1,2);
-
-var_dump($obj->bar());
+// var_dump($invoice1, $invoice3);

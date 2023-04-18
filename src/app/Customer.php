@@ -5,13 +5,18 @@ namespace App;
 class Customer
 {
 
-  use Mail;
+  // use Mail;
 
-  public function updateProfile()
+  // public function updateProfile()
+  // {
+  //   echo 'Profile updated' . PHP_EOL;
+
+  //   $this->sendEmail();
+  // }
+
+  public function __construct(public string $name)
   {
-    echo 'Profile updated' . PHP_EOL;
 
-    $this->sendEmail();
   }
 
 }
