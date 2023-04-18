@@ -11,9 +11,9 @@ trait LatteTrait
 
   public static string $foo;
 
-  public function makeLatte()
+  final public function makeLatte()
   {
-    echo static::class . ' is making latte with ' . $this->milkType . PHP_EOL;
+    echo __CLASS__ . ' is making latte with ' . $this->milkType . PHP_EOL;
   }
 
   #abstract public function getMilkType(): string;
