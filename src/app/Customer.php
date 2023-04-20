@@ -14,9 +14,11 @@ class Customer
   //   $this->sendEmail();
   // }
 
-  public function __construct(public string $name)
-  {
+  // public function __construct(public string $name)
+  // {
 
-  }
+  // }
+
+  public string $name;
 
 }
