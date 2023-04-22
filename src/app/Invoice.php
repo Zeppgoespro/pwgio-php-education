@@ -127,11 +127,32 @@ class Invoice
   //   $this->sendEmail();
   // }
 
-  public ?Invoice $linkedInvoice = null;
+  // public ?Invoice $linkedInvoice = null;
 
-  public function __construct(public Customer $customer, public float $amount, public string $description)
+  // public function __construct(public Customer $customer, public float $amount, public string $description)
+  // {
+
+  // }
+
+  private string $id;
+
+  public function __construct()
   {
+    $this->id = uniqid('invoice_'); # creates unique id number
 
+    var_dump('__construct');
+  }
+
+  // public static function create(): static
+  // {
+  //   return new static();
+  // }
+
+  public function __clone(): void
+  {
+    $this->id = uniqid('cloned_invoice_');
+
+    var_dump('__clone');
   }
 
 }
