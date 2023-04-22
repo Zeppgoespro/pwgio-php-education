@@ -7,6 +7,10 @@ namespace App;
 //  * @property-write float $y
 //  */
 
+/**
+ * @method static int foo(string $x)
+ */
+
 
 class Transaction
 {
@@ -50,7 +54,6 @@ class Transaction
   // }
 
   // /**
-  //  *
   //  * Some description
   //  *
   //  * @param Customer $customer
