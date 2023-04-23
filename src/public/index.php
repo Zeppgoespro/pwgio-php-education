@@ -1,32 +1,76 @@
 <?php
 
+use App\Customer;
 use App\Invoice;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$invoice = new Invoice(25, 'Invoice 1', '1234567887654321');
+# $invoice = new Invoice(new Customer(['foo' => 'bar']));
 
-// echo serialize(true) . PHP_EOL;
-// echo serialize(1) . PHP_EOL;
-// echo serialize(2.5) . PHP_EOL;
-// echo serialize('hello world') . PHP_EOL;
-// echo serialize([1,2,3]) . PHP_EOL;
-// echo serialize(['a' => 1, 'b' => 2]) . PHP_EOL;
-// var_dump(unserialize(serialize(['a' => 1, 'b' => 2])));
+// try {
+//   $invoice->process(-25);
+// } catch(\App\Exception\MissingBillingInfoException $e) {
+//   # echo $e->getMessage() . ' ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
+//   echo 'Some error' . PHP_EOL;
+// } catch(\InvalidArgumentException) {
+//   echo 'Invalid argument exeption baby' . PHP_EOL;
+// }
 
-# echo serialize($invoice);
+// try {
+//   $invoice->process(25);
+// } catch (\App\Exception\MissingBillingInfoException | \InvalidArgumentException $e) {
+//   # echo $e->getMessage() . ' ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
+//   echo $e->getMessage() . PHP_EOL;
+// }
 
-# var_dump(unserialize('O:11:"App\Invoice":1:{s:2:"id";s:21:"invoice_64440a6c2de73";}'));
+// try {
+//   $invoice->process(25);
+// } catch (\Exception $e) {
+//   # echo $e->getMessage() . ' ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
+//   echo $e->getMessage() . PHP_EOL;
+// } finally {
+//   echo 'Finally block' . PHP_EOL;
+// }
 
-# $str = serialize($invoice);
+// var_dump(process($invoice));
 
-// $str = serialize(false);
-// var_dump(unserialize($str));
+// function foo() {
+//   echo 'foo' . PHP_EOL;
 
-$str = serialize($invoice);
+//   return false;
+// }
 
-$invoice2 = unserialize($str);
+// function process($invoice) {
+//   try {
+//     $invoice->process(-25);
 
-# echo $str . PHP_EOL;
+//     return true;
 
-var_dump($invoice2);
+//   } catch (\Exception $e) {
+//     # echo $e->getMessage() . ' ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
+//     echo $e->getMessage() . PHP_EOL;
+
+//     return foo();
+
+//   } finally {
+//     echo 'Finally block' . PHP_EOL;
+
+//     return -1;
+//   }
+// }
+
+// set_exception_handler(function (\Throwable $e) {
+//   var_dump($e->getMessage());
+// });
+
+// try {
+//   echo array_rand([], 1);
+// } catch (\Throwable $e) {
+//   echo $e->getMessage() . PHP_EOL;
+// }
+
+# echo array_rand([], 1);
+
+$invoice = new Invoice(new Customer());
+
+$invoice->process(-25);

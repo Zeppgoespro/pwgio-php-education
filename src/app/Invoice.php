@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Exception\MissingBillingInfoException;
+use App\Exception\InvoiceException;
+
 class Invoice # implements \Serializable
 {
   #use Mail;
@@ -134,31 +137,31 @@ class Invoice # implements \Serializable
 
   // }
 
-  public string $id;
+  // public string $id;
 
-  public function __construct(
-    public float $amount,
-    public string $description,
-    public string $creditCardNumber
-  )
+  // public function __construct(
+  //   public float $amount,
+  //   public string $description,
+  //   public string $creditCardNumber
+  // )
 
-  {
-    $this->id = uniqid('invoice_'); # creates unique id number
+  // {
+  //   $this->id = uniqid('invoice_'); # creates unique id number
 
-    # var_dump('__construct');
-  }
+  //   # var_dump('__construct');
+  // }
 
   // public static function create(): static
   // {
   //   return new static();
   // }
 
-  public function __clone(): void
-  {
-    $this->id = uniqid('cloned_invoice_');
+  // public function __clone(): void
+  // {
+  //   $this->id = uniqid('cloned_invoice_');
 
-    # var_dump('__clone');
-  }
+  //   # var_dump('__clone');
+  // }
 
   // public function serialize()
   // {
@@ -180,24 +183,57 @@ class Invoice # implements \Serializable
   //   #
   // }
 
-  public function __serialize(): array
+  // public function __serialize(): array
+  // {
+  //   return [
+  //     'id' => $this->id,
+  //     'amount' => $this->amount,
+  //     'description' => $this->description,
+  //     'creditCardNumber' => base64_encode($this->creditCardNumber),
+  //     'foo' => 'bar'
+  //   ];
+  // }
+
+  // public function __unserialize(array $data): void
+  // {
+  //   $this->id = $data['id'];
+  //   $this->amount = $data['amount'];
+  //   $this->description = $data['description'];
+  //   $this->creditCardNumber = base64_decode($data['creditCardNumber']);
+  //   # var_dump($data);
+  // }
+
+  public function __construct(public Customer $customer)
   {
-    return [
-      'id' => $this->id,
-      'amount' => $this->amount,
-      'description' => $this->description,
-      'creditCardNumber' => base64_encode($this->creditCardNumber),
-      'foo' => 'bar'
-    ];
+
   }
 
-  public function __unserialize(array $data): void
+  public function process(float $amount): void
   {
-    $this->id = $data['id'];
-    $this->amount = $data['amount'];
-    $this->description = $data['description'];
-    $this->creditCardNumber = base64_decode($data['creditCardNumber']);
-    # var_dump($data);
+
+    if ($amount <= 0):
+
+      # throw new \InvalidArgumentException('Invalid invoice amount');
+      throw InvoiceException::invalidAmount();
+
+    endif;
+
+    if (empty($this->customer->getBillingInfo())):
+
+      # throw new \LogicException('Missing billing information');
+      # throw new MissingBillingInfoException();
+      # throw CustomException::missingBillingInfo(); # static
+
+      throw InvoiceException::missingBillingInfo(); # static
+
+    endif;
+
+    echo 'Processing $' . $amount . ' invoice - ';
+
+    sleep(2);
+
+    echo 'OK' . PHP_EOL;
+
   }
 
 }
