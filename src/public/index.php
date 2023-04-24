@@ -1,76 +1,81 @@
 <?php
 
-use App\Customer;
-use App\Invoice;
-
 require_once __DIR__ . '/../vendor/autoload.php';
 
-# $invoice = new Invoice(new Customer(['foo' => 'bar']));
+// $dateTime = new DateTime('tomorrow 13:13', new DateTimeZone('UTC'));
 
-// try {
-//   $invoice->process(-25);
-// } catch(\App\Exception\MissingBillingInfoException $e) {
-//   # echo $e->getMessage() . ' ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
-//   echo 'Some error' . PHP_EOL;
-// } catch(\InvalidArgumentException) {
-//   echo 'Invalid argument exeption baby' . PHP_EOL;
-// }
+// var_dump($dateTime);
 
-// try {
-//   $invoice->process(25);
-// } catch (\App\Exception\MissingBillingInfoException | \InvalidArgumentException $e) {
-//   # echo $e->getMessage() . ' ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
-//   echo $e->getMessage() . PHP_EOL;
-// }
+// $dateTime->setTimezone(new DateTimeZone('Europe/Amsterdam'));
 
-// try {
-//   $invoice->process(25);
-// } catch (\Exception $e) {
-//   # echo $e->getMessage() . ' ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
-//   echo $e->getMessage() . PHP_EOL;
-// } finally {
-//   echo 'Finally block' . PHP_EOL;
-// }
+// echo '<br />';
+// var_dump($dateTime);
 
-// var_dump(process($invoice));
+// $dateTime->setDate(2023, 04, 26)->setTime(15, 15);
 
-// function foo() {
-//   echo 'foo' . PHP_EOL;
+// echo '<br />';
+// echo $dateTime->getTimezone()->getName() . ' - ' . $dateTime->format('m/d/Y G:i A') . PHP_EOL;
 
-//   return false;
-// }
+/**
+ * day/month/year - Europe: - .
+ * month/day/year - USA: /
+*/
 
-// function process($invoice) {
-//   try {
-//     $invoice->process(-25);
+// $date = '12/05/2021 3:30PM';
 
-//     return true;
+// # $dateTime = new DateTime(str_replace('/', '-', $date));
+// $dateTime = DateTime::createFromFormat('d/m/Y G:iA', $date);
 
-//   } catch (\Exception $e) {
-//     # echo $e->getMessage() . ' ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
-//     echo $e->getMessage() . PHP_EOL;
+// var_dump($dateTime);
 
-//     return foo();
+// $date = '12/05/2021';
 
-//   } finally {
-//     echo 'Finally block' . PHP_EOL;
+// # $dateTime = new DateTime(str_replace('/', '-', $date));
+// $dateTime = DateTime::createFromFormat('d/m/Y', $date)->setTime(0,0);
 
-//     return -1;
-//   }
-// }
+// var_dump($dateTime);
 
-// set_exception_handler(function (\Throwable $e) {
-//   var_dump($e->getMessage());
-// });
+$dateTime1 = new DateTime('05/25/2021 9:15 AM');
+$dateTime2 = new DateTime('03/15/2021 3:25 AM');
 
-// try {
-//   echo array_rand([], 1);
-// } catch (\Throwable $e) {
-//   echo $e->getMessage() . PHP_EOL;
-// }
+// var_dump($dateTime1 < $dateTime2);
+// var_dump($dateTime1 > $dateTime2);
+// var_dump($dateTime1 == $dateTime2);
+// var_dump($dateTime1 <=> $dateTime2);
 
-# echo array_rand([], 1);
+echo '<pre>';
+var_dump($dateTime2->diff($dateTime1));
+echo '</pre>';
 
-$invoice = new Invoice(new Customer());
+echo '<br />';
+echo $dateTime2->diff($dateTime1)->days . PHP_EOL;
 
-$invoice->process(-25);
+echo '<br />';
+echo $dateTime2->diff($dateTime1)->format('%d') . PHP_EOL;
+
+echo '<br />';
+echo $dateTime2->diff($dateTime1)->format('%R%a') . PHP_EOL; # %Y years, %m months, %d days, %H, %i, %s
+
+$interval = new DateInterval('P3M2D');
+
+// echo '<pre>';
+// var_dump($interval);
+// echo '</pre>';
+
+echo '<pre>';
+print_r($interval);
+echo '</pre>';
+
+$dateTime = new DateTime('05/25/2021 9:15 AM');
+
+$interval->invert = 1;
+
+$dateTime->add($interval);
+
+echo '<br />';
+echo $dateTime->format('m/d/Y g:iA') . PHP_EOL;
+
+$dateTime->sub($interval);
+
+echo '<br />';
+echo $dateTime->format('m/d/Y g:iA') . PHP_EOL;
