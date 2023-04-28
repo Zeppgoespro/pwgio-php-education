@@ -12,10 +12,22 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $invoiceCollection = new InvoiceCollection([new Invoice(15), new Invoice(25), new Invoice(50)]);
 
 foreach($invoiceCollection as $invoice):
+
   // echo '<pre>';
   // var_dump($invoice);
   // echo '</pre>';
+
   if(isset($invoice->id) && isset($invoice->amount)):
     echo $invoice->id . ' - ' . $invoice->amount . '<br />' . PHP_EOL;
   endif;
+
 endforeach;
+
+foo($invoiceCollection);
+foo(['1', 2, null, true, false]);
+
+function foo(/*\App\Collection|array*/ iterable $iterable) {
+  foreach($iterable as $i => $item):
+    echo $i . '<br />' . PHP_EOL;
+  endforeach;
+}

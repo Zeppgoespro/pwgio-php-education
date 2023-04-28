@@ -9,7 +9,7 @@ class Invoice
 
   public function __construct(public float $amount)
   {
-    $this->id = random_int(10000, 9999999);
+    $this->id = random_int(1000000, 9999999);
   }
 
 }

@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Traversable;
-
-class InvoiceCollection implements \IteratorAggregate # implements \Iterator
+class InvoiceCollection extends Collection # implements \Iterator
 {
 
   // private int $key;
@@ -55,15 +53,5 @@ class InvoiceCollection implements \IteratorAggregate # implements \Iterator
   // }
 
   /* * * * */
-
-  public function __construct(public array $invoices)
-  {
-
-  }
-
-  public function getIterator(): Traversable
-  {
-    #
-  }
 
 }
