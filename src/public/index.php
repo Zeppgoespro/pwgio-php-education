@@ -1,33 +1,28 @@
 <?php
 
-use App\Invoice;
-use App\InvoiceCollection;
+declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-// foreach(new App\Invoice(25) as $key => $value):
-//   echo $key . ' = ' . $value . PHP_EOL;
-// endforeach;
+// echo '<pre>';
 
-$invoiceCollection = new InvoiceCollection([new Invoice(15), new Invoice(25), new Invoice(50)]);
+// echo print_r($_SERVER);
 
-foreach($invoiceCollection as $invoice):
+// echo '</pre>';
 
-  // echo '<pre>';
-  // var_dump($invoice);
-  // echo '</pre>';
+$router = new App\Router();
 
-  if(isset($invoice->id) && isset($invoice->amount)):
-    echo $invoice->id . ' - ' . $invoice->amount . '<br />' . PHP_EOL;
-  endif;
+$router
+  ->register('/', [App\Classes\Home::class, 'index'])
+  ->register('/invoices', [App\Classes\Invoice::class, 'index'])
+  ->register('/invoices/create', [App\Classes\Invoice::class, 'create']);
+#
 
-endforeach;
+// $router->register(
+//   '/invoices',
+//   function () {
+//     echo 'Invoices';
+//   }
+// );
 
-foo($invoiceCollection);
-foo(['1', 2, null, true, false]);
-
-function foo(/*\App\Collection|array*/ iterable $iterable) {
-  foreach($iterable as $i => $item):
-    echo $i . '<br />' . PHP_EOL;
-  endforeach;
-}
+echo $router->resolve($_SERVER['REQUEST_URI']);
