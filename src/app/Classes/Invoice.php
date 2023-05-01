@@ -7,8 +7,17 @@ namespace App\Classes;
 class Invoice
 {
 
-  public static function index(): string
+  public function index(): string
   {
+    # unset($_SESSION['count']);
+    # var_dump($_SESSION);
+
+    setcookie(
+      'userName',
+      'Zeppkka',
+      time() - (24 * 60 * 60)
+    ); # cookie deletion through negative date
+
     return 'Invoices';
   }
 
@@ -23,11 +32,9 @@ class Invoice
 
   public function store()
   {
-
     $amount = $_POST['amount'];
 
     var_dump($amount);
-
   }
 
 }

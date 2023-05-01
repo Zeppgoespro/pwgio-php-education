@@ -4,25 +4,27 @@ declare(strict_types=1);
 
 namespace App\Classes;
 
+use App\View;
+
 class Home
 {
 
-  public static function index(): string
+  public function index(): string
   {
 
-    // echo '<pre>';
-    // var_dump($_REQUEST);
-    // echo '</pre>';
+    # $_SESSION['count'] = ($_SESSION['count'] ?? 0) + 1;
 
-    // echo '<pre>';
-    // var_dump($_GET);
-    // echo '</pre>';
+    setcookie(
+      'userName',
+      'Zepp',
+      time() + 20,
+      '/',
+      '',
+      false,
+      false
+    );
 
-    // echo '<pre>';
-    // var_dump($_POST);
-    // echo '</pre>';
-
-    return 'Home';
+    return View::make('index', $_GET)->render();
 
   }
 
