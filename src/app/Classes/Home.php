@@ -4,28 +4,33 @@ declare(strict_types=1);
 
 namespace App\Classes;
 
-use App\View;
-
 class Home
 {
 
   public function index(): string
   {
+    return <<<FORM
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="receipt[]" />
+        <input type="file" name="receipt[]" />
+        <button type="submit">Upload</button>
+      </form>
+    FORM;
+  }
 
-    # $_SESSION['count'] = ($_SESSION['count'] ?? 0) + 1;
+  public function upload()
+  {
+    echo '<pre>';
+    var_dump($_FILES);
+    echo '</pre>';
 
-    setcookie(
-      'userName',
-      'Zepp',
-      time() + 20,
-      '/',
-      '',
-      false,
-      false
-    );
+    // $filePath = STORAGE_PATH . '/' . $_FILES['receipt']['name'];
 
-    return View::make('index', $_GET)->render();
+    // move_uploaded_file($_FILES['receipt']['tmp_name'], $filePath);
 
+    // echo '<pre>';
+    // var_dump(pathinfo($filePath));
+    // echo '</pre>';
   }
 
 }
