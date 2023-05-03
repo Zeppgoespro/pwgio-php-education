@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Exception\RouteNotFoundExce;
+use App\Exception\RouteNotFoundException;
 
 class Router
 {
@@ -39,7 +39,7 @@ class Router
     $action = $this->routes[$requestMethod][$route] ?? null;
 
     if (!$action):
-      throw new RouteNotFoundExce;
+      throw new RouteNotFoundException;
     endif;
 
     if (is_callable($action)):
