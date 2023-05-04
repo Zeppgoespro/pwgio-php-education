@@ -16,7 +16,15 @@ class HomeController
 
     #return (string) View::make('index');
 
-    return View::make('index', ['foo' => 'bar']);
+    return View::make('index');
+  }
+
+  public function download()
+  {
+    header('Content-Type: image/jpeg');
+    header('Content-Disposition: attachment; filename="buba.jpg"');
+
+    readfile(STORAGE_PATH . '/1-life.jpg');
   }
 
   public function upload()
@@ -25,9 +33,8 @@ class HomeController
 
     move_uploaded_file($_FILES['receipt']['tmp_name'], $filePath);
 
-    echo '<pre>';
-    var_dump(pathinfo($filePath));
-    echo '</pre>';
+    header('Location: /');
+    exit;
   }
 
 }
