@@ -31,7 +31,6 @@ try {
 
 } catch (\App\Exception\RouteNotFoundException $e) {
 
-  # header('HTTP/1.1 404 Not Found');
   http_response_code(404);
 
   echo View::make('error/404');
