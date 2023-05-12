@@ -14,15 +14,18 @@ class HomeController
   {
     try {
 
-      $db = new PDO('mysql:host=database;dbname=my_db', 'root', 'yesenin');
+      $db = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_DATABASE'],
+        $_ENV['DB_USER'],
+        $_ENV['DB_PASS']
+      );
 
     } catch (\PDOException $e) {
       throw new \PDOException($e->getMessage(), (int)$e->getCode());
     }
 
-    $email = 'jango@bkex.com';
-    $name = 'Bob Jango';
-    $amount = 25;
+    $email = 'frodo@bkex.com';
+    $name = 'Frodo Baggins';
+    $amount = 33;
 
     try {
 
@@ -35,6 +38,8 @@ class HomeController
       $new_user_stmt->execute([$email,$name]);
 
       $user_id = (int) $db->lastInsertId();
+
+      # throw new \Exception('Test');
 
       $new_invoice_stmt->execute([$amount, $user_id]);
 
@@ -50,9 +55,9 @@ class HomeController
 
     $fetch_stmt->execute([$email]);
 
-    echo '<pre>';
-    var_dump($fetch_stmt->fetch(PDO::FETCH_ASSOC));
-    echo '</pre>';
+    // echo '<pre>';
+    // var_dump($fetch_stmt->fetch(PDO::FETCH_ASSOC));
+    // echo '</pre>';
 
     return View::make('index');
   }
