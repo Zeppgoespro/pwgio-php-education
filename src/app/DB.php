@@ -3,24 +3,40 @@
 declare(strict_types=1);
 
 namespace App;
+use PDO;
+
+/**
+ * @mixin PDO
+ */
+#
 
 class DB
 {
 
-  private static ?DB $instance = null;
+  private PDO $pdo;
 
-  private function __construct(public array $config)
+  public function __construct(array $config)
   {
+    $default_options = [
+      PDO::ATTR_EMULATE_PREPARES => false,
+      PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ];
 
+    try {
+      $this->pdo = new PDO (
+        $config['driver'] . ':host=' . $config['host'] . ';dbname=' . $config['database'],
+        $config['user'],
+        $config['pass'],
+        $config['options'] ?? $default_options
+      );
+    } catch (\PDOException $e) {
+      throw new \PDOException($e->getMessage(), (int)$e->getCode());
+    }
   }
 
-  public static function getInstance(array $config): DB
+  public function __call(string $name, array $arguments)
   {
-    if (self::$instance === null):
-      self::$instance = new DB($config);
-    endif;
-
-    return self::$instance;
+    return call_user_func_array([$this->pdo, $name], $arguments);
   }
 
 }

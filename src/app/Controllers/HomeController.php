@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\App;
 use App\View;
 use PDO;
 
@@ -12,16 +13,7 @@ class HomeController
 
   public function index(): View
   {
-    try {
-
-      $db = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_DATABASE'],
-        $_ENV['DB_USER'],
-        $_ENV['DB_PASS']
-      );
-
-    } catch (\PDOException $e) {
-      throw new \PDOException($e->getMessage(), (int)$e->getCode());
-    }
+    $db = App::db();
 
     $email = 'frodo@bkex.com';
     $name = 'Frodo Baggins';
@@ -39,8 +31,6 @@ class HomeController
 
       $user_id = (int) $db->lastInsertId();
 
-      # throw new \Exception('Test');
-
       $new_invoice_stmt->execute([$amount, $user_id]);
 
       $db->commit();
@@ -54,10 +44,6 @@ class HomeController
     $fetch_stmt = $db->prepare("SELECT invoices.id AS invoice_id, amount, user_id, full_name FROM invoices INNER JOIN users on user_id = users.id WHERE email = ?");
 
     $fetch_stmt->execute([$email]);
-
-    // echo '<pre>';
-    // var_dump($fetch_stmt->fetch(PDO::FETCH_ASSOC));
-    // echo '</pre>';
 
     return View::make('index');
   }
