@@ -17,8 +17,7 @@ class Config
   public function __construct(array $env)
   {
     $this->config = [
-      'db' =>
-      [
+      'db' => [
         'host' => $env['DB_HOST'],
         'user' => $env['DB_USER'],
         'pass' => $env['DB_PASS'],
