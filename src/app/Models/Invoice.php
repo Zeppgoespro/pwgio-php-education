@@ -21,7 +21,7 @@ class Invoice extends Model
   public function find(int $invoice_id): array
   {
     $stmt = $this->db->prepare(
-      'SELECT invoices.id, amount, full_name
+      'SELECT invoices.id, amount, users.full_name
        FROM invoices
        LEFT JOIN users ON users.id = user_id
        WHERE invoices.id = ?

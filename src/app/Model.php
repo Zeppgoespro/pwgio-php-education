@@ -14,4 +14,9 @@ abstract class Model
     $this->db = App::db();
   }
 
+  public function db(): DB
+  {
+    return $this->db;
+  }
+
 }
