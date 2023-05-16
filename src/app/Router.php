@@ -50,10 +50,6 @@ class Router
 
       [$class, $method] = $action;
 
-      # var_dump($class);
-      $class = substr($class, 4); # bad attitude
-      # var_dump($class);
-
       if (class_exists($class)):
 
         $class = new $class();

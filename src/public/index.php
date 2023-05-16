@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use App\App;
 use App\Router;
-use App\View;
 use App\Config;
 use App\Controllers\HomeController;
 use App\Controllers\InvoiceController;
@@ -19,12 +18,12 @@ define('VIEW_PATH', __DIR__ . '/../views');
 
 $router = new Router();
 
-$router->get('/', [App\Controllers\HomeController::class, 'index']);
-$router->get('/download', [App\Controllers\HomeController::class, 'download']);
-$router->post('/upload', [App\Controllers\HomeController::class, 'upload']);
-$router->get('/invoices', [App\Controllers\InvoiceController::class, 'index']);
-$router->get('/invoices/create', [App\Controllers\InvoiceController::class, 'create']);
-$router->post('/invoices/create', [App\Controllers\InvoiceController::class, 'store']);
+$router->get('/', [HomeController::class, 'index']);
+$router->get('/download', [HomeController::class, 'download']);
+$router->post('/upload', [HomeController::class, 'upload']);
+$router->get('/invoices', [InvoiceController::class, 'index']);
+$router->get('/invoices/create', [InvoiceController::class, 'create']);
+$router->post('/invoices/create', [InvoiceController::class, 'store']);
 
 (new App(
   $router,

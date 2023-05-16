@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\App;
 use App\View;
 use App\Models\User;
 use App\Models\Invoice;
 use App\Models\SignUp;
-use PDO;
 
 class HomeController
 {
 
   public function index(): View
   {
-    $email = 'frank@bkex.com';
-    $name = 'Frank Glob';
-    $amount = 180;
+    $email = 'zinzo@bkex.com';
+    $name = 'Zinzo Shvarkis';
+    $amount = 88;
 
     $user_model = new User();
     $invoice_model = new Invoice();
