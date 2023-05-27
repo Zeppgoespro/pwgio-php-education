@@ -43,7 +43,7 @@ class RouterTest extends TestCase
       ]
     ];
 
-    $this->assertEquals($expected, $this->router->routes()); # Then
+    $this->assertSame($expected, $this->router->routes()); # Then
   }
 
   /** @test */
@@ -59,7 +59,7 @@ class RouterTest extends TestCase
       ]
     ];
 
-    $this->assertEquals($expected, $this->router->routes()); # Then
+    $this->assertSame($expected, $this->router->routes()); # Then
   }
 
   /** @test */
@@ -75,7 +75,7 @@ class RouterTest extends TestCase
       ]
     ];
 
-    $this->assertEquals($expected, $this->router->routes()); # Then
+    $this->assertSame($expected, $this->router->routes()); # Then
   }
 
   /** @test */
@@ -110,7 +110,21 @@ class RouterTest extends TestCase
   public function it_resolves_route_from_a_closure(): void
   {
     $this->router->get('/users', fn() => [1, 2, 3]);
-    $this->assertEquals([1, 2, 3], $this->router->resolve('/users', 'get'));
+    $this->assertSame([1, 2, 3], $this->router->resolve('/users', 'get'));
   }
 
+  /** @test */
+  public function it_resolves_route(): void
+  {
+    $users = new class() {
+      public function index(): array
+      {
+        return ['1',2,3]; ###
+      }
+    };
+
+    $this->router->get('/users', [$users::class, 'index']);
+
+    $this->assertEquals([1,2,3], $this->router->resolve('/users', 'get')); # Everytime loose comparison, better to use assertSame()
+  }
 }
