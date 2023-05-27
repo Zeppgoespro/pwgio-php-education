@@ -14,9 +14,9 @@ class HomeController
 
   public function index(): View
   {
-    $email = 'zinzo@bkex.com';
-    $name = 'Zinzo Shvarkis';
-    $amount = 88;
+    $email = 'sponge@bkex.com';
+    $name = 'Sponge Bob';
+    $amount = 888;
 
     $user_model = new User();
     $invoice_model = new Invoice();

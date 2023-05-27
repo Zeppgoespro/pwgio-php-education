@@ -9,7 +9,7 @@ use App\Exception\RouteNotFoundException;
 class Router
 {
 
-  private array $routes;
+  private array $routes = [];
 
   public function register(string $requestMethod, string $route, callable|array $action): self
   {
@@ -39,28 +39,26 @@ class Router
     $action = $this->routes[$requestMethod][$route] ?? null;
 
     if (!$action):
-      throw new RouteNotFoundException;
+      throw new RouteNotFoundException();
     endif;
 
     if (is_callable($action)):
       return call_user_func($action);
     endif;
 
-    if (is_array($action)):
+    [$class, $method] = $action;
 
-      [$class, $method] = $action;
+    if (class_exists($class)):
 
-      if (class_exists($class)):
+      $class = new $class();
 
-        $class = new $class();
-
-        if (method_exists($class, $method)):
-          return call_user_func_array([$class, $method], []);
-        endif;
-
+      if (method_exists($class, $method)):
+        return call_user_func_array([$class, $method], []);
       endif;
 
     endif;
+
+    throw new RouteNotFoundException();
 
   }
 
