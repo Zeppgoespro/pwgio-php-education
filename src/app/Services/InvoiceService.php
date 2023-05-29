@@ -12,14 +12,11 @@ class InvoiceService
     protected EmailService $email_service
   )
   {
+    # Constructor DEPENDENCY INJECTION
   }
 
   public function process(array $customer, float $amount): bool
   {
-    // $sales_tax_service = new SalesTaxService();
-    // $gateway_service = new PaymentGatewayService();
-    // $email_service = new EmailService();
-
     # 1. Calculate sales tax.
     $tax = $this->sales_tax_service->calculate($amount, $customer);
 
