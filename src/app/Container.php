@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
-use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
-use Psr\Container\NotFoundExceptionInterface;
-use App\Exception\Container\NotFoundException;
+use App\Exception\Container\ContainerException;
 
 class Container implements ContainerInterface
 {
@@ -16,13 +14,13 @@ class Container implements ContainerInterface
 
   public function get(string $id)
   {
-    if (! $this->has($id)):
-      throw new NotFoundException('Class "' . $id . '" has no binding');
+    if ($this->has($id)):
+      $entry = $this->entries[$id];
+
+      return $entry($this);
     endif;
 
-    $entry = $this->entries[$id];
-
-    return $entry($this);
+    return $this->resolve($id); # AUTOWIRING STARTS HERE
   }
 
   public function has(string $id): bool
@@ -33,6 +31,54 @@ class Container implements ContainerInterface
   public function set(string $id, callable $concrete): void
   {
     $this->entries[$id] = $concrete;
+  }
+
+  public function resolve(string $id) # AUTOWIRING
+  {
+    # 1. Inspect the class that we are trying to get from container.
+    $reflection_class = new \ReflectionClass($id); # REFLECTION API
+
+    if (! $reflection_class->isInstantiable()):
+      throw new ContainerException('Class "' . $id . '" is not instantiable');
+    endif;
+
+    # 2. Inspect the constructor of the class.
+    $constructor = $reflection_class->getConstructor();
+
+    if (! $constructor):
+      #$reflection_class->newInstance();
+      return new $id;
+    endif;
+
+    # 3. Inspect the constructor parameters (dependencies).
+    $parameters = $constructor->getParameters();
+
+    if (! $parameters ):
+      return new $id;
+    endif;
+
+    # 4. If the constructor parameter is a class then try to resolve that class using the container.
+    $dependencies = array_map(function (\ReflectionParameter $param) use ($id) {
+      $name = $param->getName();
+      $type = $param->getType();
+
+      if (! $type):
+        throw new ContainerException('Failed to resolve class "' . $id . '" because parameter"' . $name . '" is missing a type hint');
+      endif;
+
+      if ($type instanceof \ReflectionUnionType):
+        throw new ContainerException('Failed to resolve class "' . $id . '" because of union type for parameter"' . $name . '"');
+      endif;
+
+      if ($type instanceof \ReflectionNamedType && ! $type->isBuiltin()):
+        return $this->get($type->getName());
+      endif;
+
+      throw new ContainerException('Failed to resolve class "' . $id . '" because of invalid parameter"' . $name . '"');
+
+    }, $parameters);
+
+    return $reflection_class->newInstanceArgs($dependencies);
   }
 
 }

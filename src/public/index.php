@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\App;
 use App\Router;
 use App\Config;
+use App\Container;
 use App\Controllers\HomeController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -15,7 +16,8 @@ $dotenv->load();
 define('STORAGE_PATH', __DIR__ . '/../storage');
 define('VIEW_PATH', __DIR__ . '/../views');
 
-$router = new Router();
+$container = new Container;
+$router = new Router($container);
 
 $router->get('/', [HomeController::class, 'index']);
 $router->get('/download', [HomeController::class, 'download']);

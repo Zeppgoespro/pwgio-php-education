@@ -5,15 +5,18 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Services\InvoiceService;
-use App\App;
 use App\View;
 
 class HomeController
 {
 
+  public function __construct(private InvoiceService $invoice_service)
+  {
+  }
+
   public function index(): View
   {
-    App::$container->get(InvoiceService::class)->process([], 25);
+    $this->invoice_service->process([], 25);
 
     return View::make('index');
   }
