@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Temp;
 
-class CappuccinoMaker extends CoffeeMaker #implements MakesCappuccino
+class CappuccinoMaker extends CoffeeMaker # implements MakesCappuccino
 {
 
   use CappuccinoTrait {

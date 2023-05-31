@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Temp;
 
 class CollectorAgency implements DebtCollector, AnotherInterface
 {

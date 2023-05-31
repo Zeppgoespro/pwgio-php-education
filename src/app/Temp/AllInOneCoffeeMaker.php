@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Temp;
 
-class AllInOneCoffeeMaker extends CoffeeMaker #implements MakesLatte, MakesCappuccino
+class AllInOneCoffeeMaker extends CoffeeMaker # implements MakesLatte, MakesCappuccino
 {
   // use LatteTrait {
   //   LatteTrait::makeLatte as makeOriginalLatte;

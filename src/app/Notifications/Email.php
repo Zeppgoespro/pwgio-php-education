@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Notification;
+namespace App\Notifications;
 
 class Email
 {

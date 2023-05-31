@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\PaymentGateway\Paddle;
+namespace App\PaymentGateways\Paddle;
 
 class Transaction
 {
@@ -42,7 +42,6 @@ class Transaction
 
   private function generateReceipt()
   {
-
   }
 
   private function sendEmail()

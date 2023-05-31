@@ -1,13 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Temp;
 
 trait LatteTrait
 {
 
   private string $milkType = 'whole-milk';
 
-  #public static int $x = 1;
+  # public static int $x = 1;
 
   public static string $foo;
 
@@ -16,7 +16,7 @@ trait LatteTrait
     echo __CLASS__ . ' is making latte with ' . $this->milkType . PHP_EOL;
   }
 
-  #abstract public function getMilkType(): string;
+  # abstract public function getMilkType(): string;
   // {
   //   if (property_exists($this, 'milkType')):
   //     return $this->milkType;

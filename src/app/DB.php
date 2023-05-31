@@ -8,8 +8,6 @@ use PDO;
 /**
  * @mixin PDO
  */
-#
-
 class DB
 {
 

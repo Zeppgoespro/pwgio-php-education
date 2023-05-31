@@ -1,10 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Temp;
 
 class CustomInvoice extends Invoice
 {
-
-
 
 }

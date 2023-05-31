@@ -9,7 +9,7 @@ use App\Services\InvoiceService;
 class InvoiceController
 {
 
-  public function __construct(private InvoiceService $invoice_service)
+  public function __construct(private InvoiceService $invoiceService)
   {
     # Constructor DEPENDENCY INJECTION
   }
@@ -19,7 +19,7 @@ class InvoiceController
     $name = $_GET['name'];
     $amount = $_GET['amount'];
 
-    $this->invoice_service->process(
+    $this->invoiceService->process(
       ['name' => $name],
       $amount
     );

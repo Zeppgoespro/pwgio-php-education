@@ -1,11 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Temp;
 
 class FancyOven
 {
 
-  #private ToasterPro $toaster; # composition
+  # private ToasterPro $toaster; # composition
 
   public function __construct(private ToasterPro $toaster) # property promotion + composition
   {

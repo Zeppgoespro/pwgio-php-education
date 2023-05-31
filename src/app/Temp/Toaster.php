@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Temp;
 
 class Toaster
 {
@@ -30,9 +30,9 @@ class Toaster
     }
   }
 
-  public function fooBoba():void
+  public function fooBoba(): void
   {
-    echo 'Great Boba';
+    echo 'Great Boba!';
   }
 
 }

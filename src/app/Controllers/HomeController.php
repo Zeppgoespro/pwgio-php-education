@@ -10,13 +10,13 @@ use App\View;
 class HomeController
 {
 
-  public function __construct(private InvoiceService $invoice_service)
+  public function __construct(private InvoiceService $invoiceService)
   {
   }
 
   public function index(): View
   {
-    $this->invoice_service->process([], 25);
+    $this->invoiceService->process([], 25);
 
     return View::make('index');
   }

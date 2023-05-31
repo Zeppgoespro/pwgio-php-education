@@ -7,8 +7,6 @@ namespace App;
 /**
  * @property-read ?array $db
  */
-#
-
 class Config
 {
 

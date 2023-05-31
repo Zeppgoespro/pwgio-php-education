@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Temp;
 
 class InvoiceCollection extends Collection # implements \Iterator
 {
@@ -51,7 +51,5 @@ class InvoiceCollection extends Collection # implements \Iterator
   //   # reset($this->invoices);
   //   $this->key = 0;
   // }
-
-  /* * * * */
 
 }

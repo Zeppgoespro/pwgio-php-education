@@ -1,17 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Temp;
 
 // /**
 //  * @property-read int $x
 //  * @property-write float $y
 //  */
-
 /**
  * @method static int foo(string $x)
  */
-
-
 class Transaction
 {
 
@@ -27,12 +24,12 @@ class Transaction
 
   // public function __get(string $name)
   // {
-  //   //
+  //   #
   // }
 
   // public function __set($name, $value): void
   // {
-  //   //
+  //   #
   // }
 
   // /** @var Customer */
@@ -46,7 +43,7 @@ class Transaction
   // public function foo(array $arr)
   // {
 
-  //   #/** @var Customer[] $obj */
+  //   /** @var Customer[] $obj */
   //   foreach($arr as $obj):
   //     $obj->name;
   //   endforeach;
@@ -64,7 +61,6 @@ class Transaction
   //  *
   //  * @return bool
   //  */
-
   // public function process(Customer $customer, float|int $amount): bool
   // {
   //   #

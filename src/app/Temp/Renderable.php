@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Temp;
 
 interface Renderable
 {
-  public function render():string;
+  public function render(): string;
 }

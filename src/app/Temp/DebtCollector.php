@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Temp;
 
 interface DebtCollector extends AnotherInterface, SomeOtherInterface
 {

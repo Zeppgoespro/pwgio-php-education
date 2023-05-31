@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Temp;
 
 class ClassB extends ClassA
 {
