@@ -7,6 +7,7 @@ use App\Router;
 use App\Config;
 use App\Container;
 use App\Controllers\HomeController;
+use App\Controllers\GeneratorExampleController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -20,8 +21,7 @@ $container = new Container;
 $router = new Router($container);
 
 $router->get('/', [HomeController::class, 'index']);
-$router->get('/download', [HomeController::class, 'download']);
-$router->post('/upload', [HomeController::class, 'upload']);
+$router->get('/examples/generator', [GeneratorExampleController::class, 'index']);
 
 (new App(
   $container,

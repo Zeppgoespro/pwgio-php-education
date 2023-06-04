@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use Psr\Container\ContainerInterface;
-use App\Exception\Container\ContainerException;
+use App\Exceptions\Container\ContainerException;
 
 class Container implements ContainerInterface
 {
