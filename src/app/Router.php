@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Attributes\Route;
 use App\Exceptions\RouteNotFoundException;
 use App\Container;
 
@@ -16,7 +17,26 @@ class Router
   {
   }
 
-  public function register(string $requestMethod, string $route, callable|array $action): self
+  public function registerRoutesFromControllerAttribute(array $controllers)
+  {
+    foreach ($controllers as $controller):
+      $reflectionController = new \ReflectionClass($controller);
+
+      foreach ($reflectionController->getMethods() as $method):
+        $attributes = $method->getAttributes(Route::class, \ReflectionAttribute::IS_INSTANCEOF);
+
+        foreach ($attributes as $attribute):
+
+          $route = $attribute->newInstance();
+
+          $this->register($route->method, $route->routePath, [$controller, $method->getName()]);
+
+        endforeach;
+      endforeach;
+    endforeach;
+  }
+
+  public function register(string $requestMethod, string $route, callable|array $action): self # Need to ask GPT
   {
     $this->routes[$requestMethod][$route] = $action;
 
@@ -33,7 +53,7 @@ class Router
     return $this->register('post', $route, $action);
   }
 
-  public function routes():array
+  public function routes(): array
   {
     return $this->routes;
   }

@@ -8,6 +8,7 @@ use App\Config;
 use App\Container;
 use App\Controllers\HomeController;
 use App\Controllers\GeneratorExampleController;
+use App\Controllers\InvoiceController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -20,8 +21,20 @@ define('VIEW_PATH', __DIR__ . '/../views');
 $container = new Container;
 $router = new Router($container);
 
-$router->get('/', [HomeController::class, 'index']);
-$router->get('/examples/generator', [GeneratorExampleController::class, 'index']);
+$router->registerRoutesFromControllerAttribute(
+  [
+    HomeController::class,
+    GeneratorExampleController::class,
+    InvoiceController::class
+  ]
+);
+
+echo '<pre>';
+print_r($router->routes());
+echo '</pre>';
+
+// $router->get('/', [HomeController::class, 'index']);
+// $router->get('/examples/generator', [GeneratorExampleController::class, 'index']);
 
 (new App(
   $container,
