@@ -6,11 +6,16 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->load();
+
 use App\Temp\Enums\PaymentStatus;
 use App\Temp\Enums\Payment;
 use App\Temp\FinalConstant\InvoiceQuery;
 use App\Temp\NewInitializers\Customer;
 use App\Temp\ReadOnlyProperty\Address;
+use App\Temp\CompositionVsInheritance\Invoice;
+use App\Temp\CompositionVsInheritance\SalesTaxCalculator;
 
 /* Array unpacking with string keys */
 
@@ -102,4 +107,16 @@ use App\Temp\ReadOnlyProperty\Address;
 
 /* FINAL constants */
 
-echo InvoiceQuery::DEFAULT_LIMIT . PHP_EOL;
+// echo InvoiceQuery::DEFAULT_LIMIT . PHP_EOL;
+
+/* Composition vs Inheritance in PHP With Practical Examples - App\Temp\CompositionVsInheritance\ */
+
+$SalesTaxCalculator = new SalesTaxCalculator();
+
+(new Invoice($SalesTaxCalculator))->create(
+  [
+    ['description' => 'Item 1', 'quantity' => 1, 'unitPrice' => 15.25],
+    ['description' => 'Item 2', 'quantity' => 2, 'unitPrice' => 2],
+    ['description' => 'Item 3', 'quantity' => 3, 'unitPrice' => 0.25]
+  ]
+);
