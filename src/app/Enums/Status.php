@@ -1,5 +1,7 @@
 <?php
 
+/* Classic enum solution */
+
 declare(strict_types=1);
 
 namespace App\Enums;

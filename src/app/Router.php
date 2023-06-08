@@ -29,7 +29,7 @@ class Router
 
           $route = $attribute->newInstance();
 
-          $this->register($route->method, $route->routePath, [$controller, $method->getName()]);
+          $this->register($route->method->value, $route->routePath, [$controller, $method->getName()]);
 
         endforeach;
       endforeach;

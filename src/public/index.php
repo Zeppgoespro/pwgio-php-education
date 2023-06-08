@@ -29,9 +29,9 @@ $router->registerRoutesFromControllerAttribute(
   ]
 );
 
-echo '<pre>';
-print_r($router->routes());
-echo '</pre>';
+// echo '<pre>';
+// print_r($router->routes());
+// echo '</pre>';
 
 // $router->get('/', [HomeController::class, 'index']);
 // $router->get('/examples/generator', [GeneratorExampleController::class, 'index']);
